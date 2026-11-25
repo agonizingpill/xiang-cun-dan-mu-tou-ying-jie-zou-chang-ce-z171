@@ -10,6 +10,11 @@ def dtw(a,b):
     return float(dist[-1,-1]/(len(a)+len(b)))
 
 def calculate(data):
+    if isinstance(data, dict) and data.get('kind') in (
+            'night_groups', 'plan_night', 'rehearsal_plan', 'rehearsals'):
+        from domain.rehearsals_service import best_grouping
+        rows = data.get('tracks') or data.get('selected') or data.get('references') or []
+        return best_grouping(rows)
     rows=data['references']+[data['track']]
     count=len(rows)
     distances=np.zeros((count,count))

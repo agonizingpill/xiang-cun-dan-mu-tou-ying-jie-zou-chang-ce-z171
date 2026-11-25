@@ -72,3 +72,35 @@ label span { display:block; color:var(--soft); font-size:.875em }
 .top {border-bottom:7px solid var(--accent)}
 .shell {display:block} nav {flex-direction:row; border-bottom:1px solid var(--line)}
 .status.ok {color:oklch(80% .13 151)} .status.error {color:oklch(84% .11 25)}
+
+/* 整晚分组排演 */
+.rehearsal { margin-top: clamp(1.2rem, 2.5vw, 2.2rem) }
+.rh-layout { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(min(17rem),.8fr); gap:clamp(1rem,2vw,2rem); align-items:start; margin-top:1rem }
+.rh-main { display:grid; gap:1rem; min-width:0 }
+.rh-side { min-width:0 }
+.rh-materials { border:1px solid var(--line); padding:.7rem .9rem; margin:.7rem 0 }
+.rh-materials legend { padding:0 .35rem; color:var(--soft); font-size:.9em }
+.rh-checks { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(15rem,100%),1fr)); gap:.25rem .9rem; max-height:13rem; overflow:auto }
+.rh-check { display:flex; gap:.5rem; align-items:baseline; font-size:.92em }
+.rh-check input { width:auto; min-width:0 }
+.rh-check span { color:var(--ink) }
+.rh-all { font-weight:650; margin-bottom:.4rem }
+.rh-help { color:var(--soft); font-size:.92em }
+.rh-groups { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(13rem,100%),1fr)); gap:.7rem }
+.rh-group { border-inline-start:3px solid var(--accent); background:var(--tint); padding:.7rem .9rem }
+.rh-group h4 { margin:0 0 .45rem; font-family:var(--heading); font-size:1.08rem }
+.rh-venues { display:flex; flex-wrap:wrap; gap:.35rem; margin-bottom:.4rem }
+.chip { border:1px solid var(--accent); border-radius:999px; padding:.05rem .6rem; font-size:.85em; font-weight:650 }
+.rh-tracks { font-size:.88em; overflow-wrap:anywhere; margin-bottom:.35rem }
+.rh-distance { color:var(--soft); font-size:.85em; margin:0 }
+.rh-total { font-weight:650 }
+.rh-draft-head h3 { margin-bottom:.2rem }
+.rh-sign { display:grid; gap:.4rem }
+.rh-history-head { display:flex; align-items:center; justify-content:space-between; gap:.6rem }
+.rh-history-head h3 { margin:0 }
+.rh-history { margin-top:.7rem }
+.rh-version.current { outline:2px solid var(--accent) }
+.rh-mini { display:grid; gap:.15rem }
+.rh-mini-group { font-size:.86em }
+.rh-version.flash { animation:entry .6s cubic-bezier(.14,1,.28,1) both }
+@media(max-width:970px) { .rh-layout { grid-template-columns:1fr } }

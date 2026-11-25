@@ -54,9 +54,12 @@ Compose 运行 Nginx、Python FastAPI、独立 Redis 消费进程、SQL 数据�
 | 试投节奏轨迹 | `/cue_tracks` /cue_tracks/record-track，/cue_tracks/lock-track | `frontend/src/pages/cue_tracks.js` |
 | 对场节奏簇 | `/cue_clusters` /cue_clusters/compare-cues，/cue_clusters/save-cluster | `frontend/src/pages/cue_clusters.js` |
 | 交场分路回单 | `/cue_routing` /cue_routing/share-cue，/cue_routing/record-separate | `frontend/src/pages/cue_routing.js` |
+| 整晚分组排演与版本签发 | `/rehearsals/plan`，`/rehearsals/issue`，`GET /rehearsals?date=`（兼容 `/cue_clusters/plan-night`、`/cue_clusters/sign-rehearsal`） | `frontend/src/pages/cue_clusters.js` + `frontend/src/rehearsal.js` |
 
 SQL 实体与约束在 `backend/domain` 下维护。前端使用原生 ES modules。核心算子为 DTW + 凝聚层次聚类。以绝对时间差为局部代价，DTW 归一化后作为层次聚类的距离矩阵，簇内总距离最短的轨迹为代表。
 
 拍点与场地端为模拟记录。应用产出路线回单，无线路开关控制。
+
+整晚联演固定三组：在“对场节奏簇”页选择日期与已见证（锁定）素材后，服务端枚举全部合法分区，保证同一场地的片段同组、每组 1–3 个场地、素材全部排入，并取组内 DTW 拍点距离总和最小者。覆盖场地数少于 3 或多于 9 时返回 409 与中文原因，且不改动现行排演。签发采用 `base_version` 乐观锁（行锁校验），落后草案返回 409 并提示按现行版重算；同一 `code`、`Idempotency-Key`/`idempotency_key` 或 `draft_token` 重试只返回已签版本、不重复换版。每次签发追加一版 `rehearsal_plans`，按日期可查历次排演，`rehearsal_heads` 维护每晚现行版本指针。
 
 [MIT](LICENSE)

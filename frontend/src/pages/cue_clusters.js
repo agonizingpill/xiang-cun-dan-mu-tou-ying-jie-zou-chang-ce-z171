@@ -1,5 +1,6 @@
         import {workspace} from '../workspace.js';
         import {el} from '../dom.js';
+        import {mountRehearsal} from '../rehearsal.js';
 
         const page = {
   "title": "节奏相近的对场 cue",
@@ -86,5 +87,6 @@
         export const key = "cue_clusters";
         export async function render(root, role) {
           await workspace(root, role, page);
+          await mountRehearsal(root, role);
 
         }
